@@ -6,9 +6,14 @@ Articles read/referenced:
 
 
 
-Project Problems Explored:
+Project Ideas Explored:
+1. One idea that I had for my project is to make a TCPdump user interface utility. This would include a web
+application that would be able to perform a tcp dump on a target host with the options provided in the utility.
+This idea was motivated by my current occupation at a telecommunications company as a Software Engineer, 
+where there are many times I must run tcpdump to capture packets being exchanged between hosts and copy the files over to 
+my machine for analysis. This solution would make my job easier by invoking the command with the options
+specified in the web interface and copying the pcap file over for me. 
 
+2. Web workout tracker for weight lifting with backing database storage.
+...more to come on this idea.
 
-
-
-Conclusion:
