@@ -1,0 +1,33 @@
+
+Project Proposal:
+
+
+Taking my idea from last week to build a graphical user interface for captuiring a tcpdump on remote servers,
+I began to explore how this can be done. Once idea I have is to use CSS/HTML/javascript for the font end of the 
+Web interface, and then to use bash or java for the back end interface. I am not sure at the moment which will suffice;
+There will be a requirement to run an SSH command on to a remote server and then pull back the .pcap capture file, so this will
+need to be invoked in some kind or child process or a script.
+
+Below is a rough outline of the requirements I have defined for this project:
+
+
+
+1. passwordless or password enabled ssh to the remote systems that intend to take the capture.
+2. Utilization of the SCP or some other secure file copy.
+3. Graphical user interface which allows for the following:
+  - Drop down menu for protocol transport selection filtering (TCP, UDP, SCTP)
+  - Form for User input options in raw format
+  - Form for drop downs and selection buttons for ease-of-use caputres.
+  - Filtering selections such as TCP flags, ICMP types, etc. These will be buttons that may be tunred on and off.
+  - A "Capture (or run)" button.
+  - A"Stop" button to stop the capture.
+  - A configurable setting that will copy the file into a specified location via user request.
+  - option to catpure on multiple hosts.
+4. Open wireshark application for pcap viewing in the end (nice to have)
+5. Integration with Ansible (nice to have)
+
+The problem that this solves is it makes my test engineering job easier for gathering protocol caputre data when
+executing tests. This could also be applied to a support engineeer. It would allow and show flexibility that tcpdump
+has to offer without having to research it. It would also take care of the hassle that goes with trying to run a test
+and setting up catpures on a number of machines. This saves time in gathering the protocol data and makes the team using
+this tool more efficient.
