@@ -1,0 +1,16 @@
+
+
+I have began to stub out what I think will be a basic web page for the GUI of the project proposed last week. I am using a 
+combination of W3Schools and other online tutorials in order to learn HTML5/CSS/Javascript because most of it is new for me
+I have been exposed to HTML and XML but do not know the details of Javascript. I am considering ordering a book as a guide and
+reference for coding in javascript; I think it will make it easier to implement and learn it. I also am intersted in writing
+secure code, because I know that javascript can be exploited for vulnerablilities. As a nice to have goal that I hope to achieve
+for my project, I want my application to be resistant to javascript vulnerabilities.
+
+This week I found an interesing article on writing secure code using javascript and various web technologies. I am alreasy aware and
+familiar with some of the attacks described, just not all the details. At the end of the atricle they provide some free
+tutorials to walk through about writing secure web code. Here is the link to the atricle:
+
+
+
+https://www.checkmarx.com/sast-supported-languages/javascript-overview-and-vulnerabilities/
