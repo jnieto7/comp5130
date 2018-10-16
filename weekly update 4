@@ -1,0 +1,21 @@
+
+
+This week I actually ran into a problem at work that my proposed web application would assist in. We had a situation where 
+two machines were stuck in an interesting loop with the SCTP layer 4 transport protocol (RFC 4960 https://tools.ietf.org/html/rfc4960) 
+during the shutdown of the connection. In a high level overview, one end of the association (connection) was sending a shutdown message which is 
+received and then acknolwdged with a shutdown_ack message. However the shutdown_ack was lost in the network and so it was retransmitted
+per the rules of RFC 4960 Section 8. The other end had already cleaned up his knowledge of the association because the user application
+was shutting down. When the application came back up the shutdown_ack appeared as an "out of the blue" shutdown ack, in which
+the RFC says that it SHOULD send a shutdown complete message to finish the graceful shutdown procedure. However this message
+was not sent, and instead an INIT message (similar to a TCP SYN) was sent to begin a new association. The reception of the INIT
+on the other side caused him to clear his error counters, and again retransmit the shutdown ack. This loop repeats indefinitely
+because each INIT clears the error counters and the shutdown_ack retrasmission error count will never exceed the threshhold to
+terminate the association. The result is the socket lingers in a CLOSE state and no application can bind to that address again.
+
+When trying to reproduce this in our lab, we had to go through muliple attempts of capturing TCP dumps on the two machines.
+This involved logging into each machine, starting the TCPdump, starting the test, ending the dump on both machines, and then
+copying the dump back over for analysis from both machines. My web application would make the process easier by executing the dump
+and copying it back in one execution.
+
+I have had thoughts about the possability of leverageing Ansible to assist in some of the Unix command line interface commands
+that are required to exeucte the packet capture on multiple systems.
