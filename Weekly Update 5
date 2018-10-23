@@ -1,0 +1,14 @@
+
+
+This week I uploaded an initial sketch of the HTML code for the GUI of this web application. It is viewable under /trunk/gui.html.
+I have been reading and using w3schools tutorials in order to learn HTML. I still have a lot of learning to do to integrate CSS,
+and to learn Javascript.
+
+I did come accross an interesting article about Internet Security involving javascript applications. Here is the link to it:
+
+https://www.zdnet.com/article/an-insecure-mess-how-flawed-javascript-is-turning-web-into-a-hackers-playground/
+
+
+In Summary, the article explained how javascript is turning the internet into a "hacker's playground" It showed some of the
+widely used web technologies and displayed some statsitics about the versions and known vulnerabilites. It placed an emphasis
+that there are a lot of Websites and web applications out there that do not keep their systems up to date.
