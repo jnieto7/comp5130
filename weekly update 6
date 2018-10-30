@@ -1,0 +1,9 @@
+
+
+This week I updated my GUI for the capture utility to have a button that adds in additonal servers to capture on. The function
+still must be implemented via javascript; it has to dynamically generate more HTML for the user upon click. This will also
+provide a button to remove anything the user had added and does not wish to have in the capture. I have begun to implement
+this function, however I struggled with getting it to work correctly. I found some examples online but could not get the
+button to generate the HTML when I clicked on it. I think there is something wrong with my syntax. I will have to debug through this
+and figure it out. Once this portion is completed, this will give the user the ability to configure the capture to multiple hosts.
+The next step is to parse out the configuration that the user has provided and execute the catpures.
