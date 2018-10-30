@@ -4,26 +4,36 @@
 
 <h1>Protcol Capture Utility</h1>
 
-<p>(place holder description) Welcome to the protocol capture tool. This tool will allow the capture of a tcpdump
+<p>Welcome to the protocol capture tool. This tool will allow the capture of a tcpdump
 to multiple hosts simultaneously</p>
 
 <h2>Server Configuration</h2>
 
 <!-- TODO: This must be configurable to specify amount of servers using javascript-->
 <form action="">
-  Server IP Address: <br>
+<div id="servers">
+<p>
+  Server IP Address:
   <input type="text" name="server1" value="">
   Raw Paramaters:
   <input type="text" name="raw1" value="">
+  </p>
+  </div>
   <br><br>
-  <form enctype="multipart/form-data" action="" method="post">
-    <p><input type="button" value="Add Server" onclick="addServer();" /></p>
-  </form> 
+    <p><input type="button" value="Add Server" onclick="addServers()" /></p>
 
   <input type="submit" value="Run">
 </form> 
+<script>
+var id = 0;
 
-
+function addServers() {
+    id++; // increment fileId to get a unique ID for the new element
+    var html = '<input type="text" name="servers" /> ' +
+               '<a href="" onclick="javascript:removeElement('server' + id + ''); return false;">Remove</a>';
+    addElement('servers', 'p', 'server' + id, html);
+}
+</script>
 
 <p>Click "Run" to begin the packet captures.</p>
 
