@@ -7,28 +7,23 @@
 <p>(place holder description) Welcome to the protocol capture tool. This tool will allow the capture of a tcpdump
 to multiple hosts simultaneously</p>
 
-<h2>HTML Forms</h2>
+<h2>Server Configuration</h2>
 
-<!-- TODO: This must be configurable to specify amount of servers, or static and left blank-->
+<!-- TODO: This must be configurable to specify amount of servers using javascript-->
 <form action="">
-  Server1 IP Address: <br>
+  Server IP Address: <br>
   <input type="text" name="server1" value="">
   Raw Paramaters:
   <input type="text" name="raw1" value="">
   <br><br>
-  Server2 IP Address: <br>
-  <input type="text" name="server2" value="">
-  Raw Paramaters:
-  <input type="text" name="raw2" value="">
-  <br><br>
-  Server3 IP Address: <br>
-  <input type="text" name="raw" value="">
-  Raw Paramaters:
-  <input type="text" name="raw3" value="">
-  <br><br>
-  
+  <form enctype="multipart/form-data" action="" method="post">
+    <p><input type="button" value="Add Server" onclick="addServer();" /></p>
+  </form> 
+
   <input type="submit" value="Run">
 </form> 
+
+
 
 <p>Click "Run" to begin the packet captures.</p>
 
