@@ -25,13 +25,21 @@ to multiple hosts simultaneously</p>
   <input type="submit" value="Run">
 </form> 
 <script>
-var id = 0;
+   var id = 0;
 
 function addServers() {
-    id++; // increment fileId to get a unique ID for the new element
-    var html = '<input type="text" name="servers" /> ' +
-               '<a href="" onclick="javascript:removeElement('server' + id + ''); return false;">Remove</a>';
-    addElement('servers', 'p', 'server' + id, html);
+
+id++; // increment Id for the new element
+    
+var newElement ;
+var container ;
+ 
+newElement = document.createElement( 'p' );
+newElement.innerHTML = 'Server IP Address: <input type="text" name="server1" value=""> Raw Paramaters: <input type="text" name="raw1" value=""> ' ;
+ 
+container = document.getElementById( 'servers' );
+container.appendChild( newElement );
+}
 }
 </script>
 
