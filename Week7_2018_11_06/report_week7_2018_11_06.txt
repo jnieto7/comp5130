@@ -1,0 +1,11 @@
+This week I was able to get the javascript funtcion for adding additional servers onto my GUI working. 
+This consists of a button that says "add server" that the user can click on to add a host to the protocol capture.
+The functionality of the button and the parsing still needs to be written. I also added a table of selectable command
+line options for the capture. I have not yet decided whether the capture options will be the same for all hosts or if the
+user will be able to provide different paramaters for each host. Other than the names of the interfaces that hosts have to capture
+on, in most applications of this tool it is sufficient for the caputure options to be the same for all hosts. I implemented this
+using a table with checkboxes that the user can pick from. I have decided to omit a couple of options that may not make sense
+for this tool. As of right now, they are commented out.
+
+The next step is to finish all of the selectable options that users can pick, and then begin to write the parser to parse the submission.
+Once the functionaluty of the project is working, I will incorporate more CSS and stlying to make the look and feel more appealing.
