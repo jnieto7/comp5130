@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
     <head>
@@ -7,19 +7,16 @@
 
     <body>
 
-        <p>TCPDUMP multi-capture tool. This tool will allow the capture of a tcpdump
-            to multiple hosts simultaneously</p>
+        <h1><b>TCPDUMP multi-capture tool</b> </h1>
+
+        <h4>This tool will allow the capture of a tcpdump
+            to multiple hosts simultaneously</h4>
 
         <h2>Server Configuration</h2>
 
         <form action="">
             <div id="servers">
-                <p>
-                    Server IP Address:
-                    <input type="text" name="server1" value="">
-                    <!--                    Raw Parameters:
-                                        <input type="text" name="raw1" value="">-->
-                </p>
+
             </div>
             <br><br>
             <p><input type="button" value="Add Server" onclick="addServers()" /></p>
@@ -31,7 +28,7 @@
                 var newElement;
                 var container;
                 newElement = document.createElement( 'p' );
-                newElement.innerHTML = 'Server IP Address: <input type="text" name="server1" value=""> Raw Parameters: <input type="text" name="raw1" value=""> ' ;
+                newElement.innerHTML = 'Server IP Address: <input type="text" name="server1" value=""> Password: <input type="text" name="raw1" value=""> ' ;
                 container = document.getElementById( 'servers' );
                 container.appendChild( newElement );
                 }
@@ -42,30 +39,48 @@
 
         <h2>Capture options</h2>
 
-        <form action="">
+        <form action="" id="options">
 
             <table style="width:100%">
-                <tr>
-                    <td>Command Line:</td>
-                <input type="checkbox" name="cmd1" value="a">-A Print frame payload in ASCII <br>
-                <input type="checkbox" name="cmd2" value="c">-c &lt;count&gt; Exit after capturing count packets<br>
-                <!--<input type="radio" name="cmd3" value="D">-List available interfaces<br>-->
-                <input type="checkbox" name="cmd4" value="e">-e Print link-level headers<br>
-                <input type="checkbox" name="cmd5" value="F">-F &lt;file&gt; Use file as the filter expression<br>
-                <input type="checkbox" name="cmd6" value="G">-G Rotate the dump file every n seconds<br>
-                <input type="text" name="cmd7" value="i" checked>-i &lt;iface&gt; Specifies the capture interface<br>
-                <input type="checkbox" name="cmd8" value="K">-K Don't verify TCP checksums<br>
-                <input type="checkbox" name="cmd9" value="L">-L List data link types for the interface<br>
-                <input type="checkbox" name="cmd10" value="n">-n Don't convert addresses to names<br>
-                <input type="checkbox" name="cmd11" value="p">-p Don't capture in promiscuous mode<br>
-                <input type="checkbox" name="cmd12" value="q">-q Quick output<br>
-                <!--<input type="checkbox" name="cmd13" value="r">-r <file> Read packets from file<br>-->
-                <input type="checkbox" name="cmd14" value="s">-s &lt;len&gt; Capture up to len bytes per packet<br>
-                <input type="checkbox" name="cmd15" value="S">-S Print absolute TCP sequence numbers<br>
-                <input type="checkbox" name="cmd16" value="t">-t Don't print timestamps<br>
-                <input type="checkbox" name="cmd17" value="v">-v[v[v]] Print more verbose output<br>
-                </tr>
+                <b>Command Line:</b><br><br>
+                <a href="../../usr/lib64/jvm/jre-10-openjdk/bin/java"></a>
+
+                <tr><input type="checkbox" name="cmd1">-A Print frame payload in ASCII<br></tr>
+                <tr><input type="checkbox" name="cmd2">-c &lt;count&gt; Exit after capturing count packets<br></tr>
+                <tr><input type="checkbox" name="cmd4">-e Print link-level headers<br></tr>
+                <tr><input type="checkbox" name="cmd5">-F &lt;file&gt; Use file as the filter expression<br></tr>
+                <tr>-i &lt;iface&gt; Specifies the capture interface <input type="text" name="cmd7" value="any"><br></tr>
+                <tr><input type="checkbox" name="cmd8">-K Don't verify TCP checksums<br></tr>
+                <tr><input type="checkbox" name="cmd9">-L List data link types for the interface<br></tr>
+                <tr><input type="checkbox" name="cmd10">-n Don't convert addresses to names<br></tr>
+                <tr><input type="checkbox" name="cmd11">-p Don't capture in promiscuous mode<br></tr>
+                <tr><input type="checkbox" name="cmd12">-q Quick output<br></tr>
+                <tr><input type="checkbox" name="cmd14">-s &lt;len&gt; Capture up to len bytes per packet<br></tr>
+                <tr><input type="checkbox" name="cmd15">-S Print absolute TCP sequence numbers<br></tr>
+                <tr><input type="checkbox" name="cmd16">-t Don't print timestamps<br></tr>
+                <tr><input type="checkbox" name="cmd17">-v[v[v]] Print more verbose output<br></tr>
+
+                <br><br>
+                <b>Capture Filter Primitives:</b><br><br>
+
+                <tr>src host: Match IP source <input type="text" name="cmd18"><br></tr>
+                <tr>dst host: Match IP destination <input type="text" name="cmd19"><br></tr>
+                <tr>ether src host: Match ethernet source <input type="text" name="cmd20"><br></tr>
+                <tr>ether dst host: Match ethernet destination <input type="text" name="cmd21"><br></tr>
+                <tr><input type="checkbox" name="cmd22" value="G">vlan: Match 802.1Q frames, optionally with a VLAN ID of vlan<br></tr>
             </table>
+
+
+            <br>
+            </table>
+
+
+        </form> 
+
+        <form action="" id="options">
+
+            <table style="width:100%">
+
 
         </form> 
 
