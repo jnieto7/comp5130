@@ -7,6 +7,8 @@
 
     <body>
 
+        <link rel="stylesheet" href="style.css"/>
+
         <h1><b>TCPDUMP multi-capture tool</b> </h1>
 
         <h4>This tool will allow the capture of a tcpdump
@@ -44,33 +46,44 @@
             <table style="width:100%">
                 <b>Command Line:</b><br><br>
 
-                <tr><input type="checkbox" name="cmd1">-A Print frame payload in ASCII<br></tr>
-                <tr><input type="checkbox" name="cmd2">-c &lt;count&gt; Exit after capturing count packets<br></tr>
-                <tr><input type="checkbox" name="cmd4">-e Print link-level headers<br></tr>
-                <tr><input type="checkbox" name="cmd5">-F &lt;file&gt; Use file as the filter expression<br></tr>
-                <tr>-i &lt;iface&gt; Specifies the capture interface <input type="text" name="cmd7" value="any"><br></tr>
-                <tr><input type="checkbox" name="cmd8">-K Don't verify TCP checksums<br></tr>
-                <tr><input type="checkbox" name="cmd9">-L List data link types for the interface<br></tr>
-                <tr><input type="checkbox" name="cmd10">-n Don't convert addresses to names<br></tr>
-                <tr><input type="checkbox" name="cmd11">-p Don't capture in promiscuous mode<br></tr>
-                <tr><input type="checkbox" name="cmd12">-q Quick output<br></tr>
-                <tr><input type="checkbox" name="cmd14">-s &lt;len&gt; Capture up to len bytes per packet<br></tr>
-                <tr><input type="checkbox" name="cmd15">-S Print absolute TCP sequence numbers<br></tr>
-                <tr><input type="checkbox" name="cmd16">-t Don't print timestamps<br></tr>
-                <tr><input type="checkbox" name="cmd17">-v[v[v]] Print more verbose output<br></tr>
+                <input type="checkbox" name="cmd1">-A Print frame payload in ASCII<br>
+                <input type="checkbox" name="cmd2">-c &lt;count&gt; Exit after capturing count packets<br>
+                <input type="checkbox" name="cmd4">-e Print link-level headers<br>
+                <input type="checkbox" name="cmd5">-F &lt;file&gt; Use file as the filter expression<br>
+                -i &lt;iface&gt; Specifies the capture interface <input type="text" name="cmd7" value="any"><br>
+                <input type="checkbox" name="cmd8">-K Don't verify TCP checksums<br>
+                <input type="checkbox" name="cmd10">-n Don't convert addresses to names<br>
+                <input type="checkbox" name="cmd14">-s &lt;len&gt; Capture up to len bytes per packet<br>
 
                 <br><br>
                 <b>Capture Filter Primitives:</b><br><br>
 
-                <tr>src host: Match IP source <input type="text" name="cmd18"><br></tr>
-                <tr>dst host: Match IP destination <input type="text" name="cmd19"><br></tr>
-                <tr>ether src host: Match ethernet source <input type="text" name="cmd20"><br></tr>
-                <tr>ether dst host: Match ethernet destination <input type="text" name="cmd21"><br></tr>
-                <tr><input type="checkbox" name="cmd22" value="G">vlan: Match 802.1Q frames, optionally with a VLAN ID of vlan<br></tr>
-            </table>
+                src host: Match IP source <input type="text" name="cmd18"><br>
+                dst host: Match IP destination <input type="text" name="cmd19"><br>
+                ether src host: Match ethernet source <input type="text" name="cmd20"><br>
+                ether dst host: Match ethernet destination <input type="text" name="cmd21"><br>
+                src port Match source port<input type="text" name="cmd22"><br>
+                dst port Match destination port <input type="text" name="cmd23"><br>
+
+                <input type="checkbox" name="cmd22" value="G">vlan: Match 802.1Q frames, optionally with a VLAN ID of vlan<br>
+
+                <br><br>
+                <b>-p protocol</b><br><br>
+                <input type="radio" name="radio">arp<br>
+                <input type="radio" name="radio"> ether<br>
+                <input type="radio" name="radio">icmp<br>
+                <input type="radio" name="radio">ip<br>
+                <input type="radio" name="radio">ip6<br>
+                <input type="radio" name="radio">link<br>
+                <input type="radio" name="radio">ppp<br>
+                <input type="radio" name="radio">radio<br>
+                <input type="radio" name="radio">sctp<br>
+                <input type="radio" name="radio">tcp<br>
+                <input type="radio" name="radio">udp<br>
+                <input type="radio" name="radio">wlan<br>
 
 
-            <br>
+                <br>
             </table>
 
 
