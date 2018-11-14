@@ -1,4 +1,5 @@
 Completed the following on my project this week:
 
 
-1.
+1. I completed the addition of more tcpdump options for the user to select for the packet captures. I am using the tcpdump man pages and a tcpdump cheat sheet that I found online as a reference for available options to add to the graphical user interface (http://packetlife.net/media/library/12/tcpdump.pdf). There are some options that are not applicable to the use case of this project, for example -D list available interfaces. It must be known what the interface names are prior to using this tool, or use the any option.
+2. I removed the text input for adding servers so that the user has to click on the server to begin adding servers .This way the first one is not shown by default. 
