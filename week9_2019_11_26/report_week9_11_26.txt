@@ -1,0 +1,9 @@
+This week I completed the following on my project:
+
+- Created style.css style sheet for the look and feel of my GUI.  This will be the base formatting file for the project.
+- Updted gui.html to use the style.css style sheet. I organized the main body of the command options into a class so they can
+be formatted together. 
+- I updated the gui.html to remove the options that display information to the screen because they are not useful.
+  All protocol captures will be saved to files for analysis, so these options would be irrelevant.
+- Researched input processing with Javascript. My next step is to get the input processing working so I will be thinking about
+Java, pure javascript or some other way to deal with the user input. Ultimately it will need to invoke Linux shell commands on remote hosts.
