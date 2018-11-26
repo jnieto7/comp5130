@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Protocol Capture Utility</title>
+    </head>
+
+    <body>
+
+        <link rel="stylesheet" href="style.css"/>
+
+        <h1><b>TCPDUMP multi-capture tool</b> </h1>
+
+        <h4>This tool will allow the capture of a tcpdump
+            to multiple hosts simultaneously</h4>
+
+        <h2>Server Configuration</h2>
+
+        <form action="">
+            <div id="servers">
+
+            </div>
+            <br><br>
+            <p><input type="button" value="Add Server" onclick="addServers()" /></p>
+
+            <script>
+                var id = 0;
+                function addServers() {
+                id++;
+                var newElement;
+                var container;
+                newElement = document.createElement( 'p' );
+                newElement.innerHTML = 'Server IP Address: <input type="text" name="server1" value=""> Password: <input type="text" name="raw1" value=""> ' ;
+                container = document.getElementById( 'servers' );
+                container.appendChild( newElement );
+                }
+            </script>
+
+        </form> 
+
+
+        <h2>Capture options</h2>
+
+        <form action="" id="options">
+
+            <table style="width:100%">
+                <b>Command Line:</b><br><br>
+
+                <input type="checkbox" name="cmd1">-A Print frame payload in ASCII<br>
+                <input type="checkbox" name="cmd2">-c &lt;count&gt; Exit after capturing count packets<br>
+                <input type="checkbox" name="cmd4">-e Print link-level headers<br>
+                <input type="checkbox" name="cmd5">-F &lt;file&gt; Use file as the filter expression<br>
+                -i &lt;iface&gt; Specifies the capture interface <input type="text" name="cmd7" value="any"><br>
+                <input type="checkbox" name="cmd8">-K Don't verify TCP checksums<br>
+                <input type="checkbox" name="cmd10">-n Don't convert addresses to names<br>
+                <input type="checkbox" name="cmd14">-s &lt;len&gt; Capture up to len bytes per packet<br>
+
+                <br><br>
+                <b>Capture Filter Primitives:</b><br><br>
+
+                src host: Match IP source <input type="text" name="cmd18"><br>
+                dst host: Match IP destination <input type="text" name="cmd19"><br>
+                ether src host: Match ethernet source <input type="text" name="cmd20"><br>
+                ether dst host: Match ethernet destination <input type="text" name="cmd21"><br>
+                src port Match source port<input type="text" name="cmd22"><br>
+                dst port Match destination port <input type="text" name="cmd23"><br>
+
+                <input type="checkbox" name="cmd22" value="G">vlan: Match 802.1Q frames, optionally with a VLAN ID of vlan<br>
+
+                <br><br>
+                <b>-p protocol</b><br><br>
+                <input type="radio" name="radio">arp<br>
+                <input type="radio" name="radio"> ether<br>
+                <input type="radio" name="radio">icmp<br>
+                <input type="radio" name="radio">ip<br>
+                <input type="radio" name="radio">ip6<br>
+                <input type="radio" name="radio">link<br>
+                <input type="radio" name="radio">ppp<br>
+                <input type="radio" name="radio">radio<br>
+                <input type="radio" name="radio">sctp<br>
+                <input type="radio" name="radio">tcp<br>
+                <input type="radio" name="radio">udp<br>
+                <input type="radio" name="radio">wlan<br>
+
+
+                <br>
+            </table>
+
+
+        </form> 
+
+        <form action="" id="options">
+
+            <table style="width:100%">
+
+
+        </form> 
+
+
+        Raw Parameters:
+        <input type="text" name="raw1" value="">
+
+
+        <input type="submit" value="Run">
+
+        <p>Click "Run" to begin the packet captures.</p>
+
+
+
+
+    </body>
+</html>
