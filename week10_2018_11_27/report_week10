@@ -1,0 +1,27 @@
+
+This week I completed the following on my project:
+
+I implemented minor adjustments to the GUI to make the look nicer for the user. For example, I have bolded and resized fomr of the headings so that they stand out. This makes that section of the page clear.
+
+I fixed incrementing the ids of the "Add server" button
+
+I began to implement a test Java servlet. I will see if this can handle requests. I did not get the test up and runnning yet, although I did successfully install Apache Tomcat and imported the javax.servlet libariries into my project.
+
+I researched the following this week:
+
+I did some research into java servlets. I found that it should be possible to handle an Ajax request from a client in a Java Servlet application. My intent will be to have the application extecute ssh commands to remote hosts to run the tcpdumps. WHen they complete, a response will be sent back. On stack overflow I found some sample code that shows how a request may be dispatched to a server:
+
+"
+You can put your static html (or dynamic JSPs) under WEB-INF (or WEB-INF/html below), and then use RequestDispatcher.include(ServletRequest, ServletResponse) (or forward). Something like,
+
+RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/html/myfile.html");
+rd.include(request, response);
+"
+
+I used the follwing as references:
+
+https://stackoverflow.com/questions/36532255/opening-an-html-file-in-a-servlet
+
+https://www.tutorialspoint.com/servlets/servlets-first-example.html
+
+https://beginnersbook.com/2013/05/servlet-api/
