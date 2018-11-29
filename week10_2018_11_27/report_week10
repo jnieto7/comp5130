@@ -1,11 +1,10 @@
 
 This week I completed the following on my project:
 
-I implemented minor adjustments to the GUI to make the look nicer for the user. For example, I have bolded and resized fomr of the headings so that they stand out. This makes that section of the page clear.
+I implemented minor adjustments to the GUI to make the look nicer for the user. For example, I have bolded and resized some of the headings so that they stand out. This makes that section of the page clear.
 
-I fixed incrementing the ids of the "Add server" button
-
-I began to implement a test Java servlet. I will see if this can handle requests. I did not get the test up and runnning yet, although I did successfully install Apache Tomcat and imported the javax.servlet libariries into my project.
+I fixed incrementing the ids of the "Add server" button. This button may end up going away.
+Deleted some options that do not make sense for this application, and collapsed the host options.
 
 I researched the following this week:
 
@@ -17,6 +16,8 @@ You can put your static html (or dynamic JSPs) under WEB-INF (or WEB-INF/html be
 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/html/myfile.html");
 rd.include(request, response);
 "
+
+I began to implement a test Java servlet and successfully was able to process a form using a servlet. THis did not involve javascript yet but included form processing.
 
 I used the follwing as references:
 
