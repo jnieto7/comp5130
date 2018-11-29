@@ -46,21 +46,21 @@ public class Servlet extends HttpServlet {
             command.append(" -s ").append(lenBytes);
         }
 
-        String sourceHost = request.getParameter("sourceHost");
-        String sourcePort = request.getParameter("sourcePort");
-
-        if (sourcePort != null) {
-
+        String host = request.getParameter("host");
+        if (host != null) {
+            command.append(" host ").append(host);
         }
 
-        String destHost = request.getParameter("destHost");
-        String destPort = request.getParameter("destPort");
+        String port = request.getParameter("port");
+        if (port != null) {
+            command.append(" port ").append(port);
+        }
 
         // Set response content type
         response.setContentType("text/html");
 
         PrintWriter out = response.getWriter();
-        out.println("<h1>" + "running with command: " + "</h1>");
+        out.println("<h1>" + "Running tcpdump network packet captures with command: " + command.toString() + "</h1>");
         out.println("<h1>" + "TCPDumps successfully captured!" + "</h1>");
     }
 
