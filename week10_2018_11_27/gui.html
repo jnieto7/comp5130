@@ -4,6 +4,8 @@
     <head>
         <title>Protocol Capture Utility</title>
         <link rel="stylesheet" href="style.css"/>
+        <link rel="stylesheet" href="style.css" type="text/css">
+
     </head>
 
     <body>
@@ -25,17 +27,17 @@
 
                 function addServers() {
 
-                id++;
+                    id++;
 
-                var newElement;
-                var container;
+                    var newElement;
+                    var container;
 
-                newElement = document.createElement( 'p' );
-                newElement.innerHTML = 'Server IP Address: <input type="text" name="server1" value=""> Password: <input type="text" name="raw1" value=""> ' ;
-                newElement.id = id;
-                
-                container = document.getElementById( 'servers' );
-                container.appendChild( newElement );
+                    newElement = document.createElement('p');
+                    newElement.innerHTML = 'Server IP Address: <input type="text" name="server1" value=""> Password: <input type="password" name="password1" value=""> ';
+                    newElement.id = id;
+
+                    container = document.getElementById('servers');
+                    container.appendChild(newElement);
                 }
             </script>
 
@@ -44,57 +46,47 @@
 
         <h2>Capture options</h2>
 
-        <form action="" id="options" class="options">
+        <form name ="options" method="post" action="processOptions" id="options" class="options">
+            <b>Command Line:</b><br><br>
+            -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any"><br>
 
-            <table style="width:100%">
-                <b>Command Line:</b><br><br>
-                -i &lt;interface&gt; Specifies the capture interface <input type="text" name="cmd7" value="any"><br>
+            <input type="checkbox" name="lenBytes">-s &lt;len&gt; Capture up to len bytes per packet<br>
 
-                <br>
+            <br><br>
+            <b>Capture Filter Primitives:</b>
+            <br><br>
 
-                <input type="checkbox" name="cmd1">-A Print frame payload in ASCII<br>
-                <input type="checkbox" name="cmd2">-c &lt;count&gt; Exit after capturing count packets<br>
-                <input type="checkbox" name="cmd8">-K Don't verify TCP checksums<br>
-                <input type="checkbox" name="cmd10">-n Don't convert addresses to names<br>
-                <input type="checkbox" name="cmd14">-s &lt;len&gt; Capture up to len bytes per packet<br>
+            src host: Match IP source <input type="text" name="sourceHost"><br>
+            dst host: Match IP destination <input type="text" name="destHost"><br>
+            src port Match source port<input type="text" name="sourcePort"><br>
+            dst port Match destination port <input type="text" name="destPort"><br>
 
-                <br><br>
-                <b>Capture Filter Primitives:</b><br><br>
+            <br><br>
 
-                src host: Match IP source <input type="text" name="cmd18"><br>
-                dst host: Match IP destination <input type="text" name="cmd19"><br>
-                ether src host: Match ethernet source <input type="text" name="cmd20"><br>
-                ether dst host: Match ethernet destination <input type="text" name="cmd21"><br>
-                src port Match source port<input type="text" name="cmd22"><br>
-                dst port Match destination port <input type="text" name="cmd23"><br>
+            <b>-p protocol</b><br><br>
+            (Note: the -p protocol option cannot be used in conjuction with host/port options above)<br>
 
-                <input type="checkbox" name="cmd22" value="G">vlan: Match 802.1Q frames, optionally with a VLAN ID of vlan<br>
+            <input type="radio" name="radio">arp<br>
+            <input type="radio" name="radio">ether<br>
+            <input type="radio" name="radio">icmp<br>
+            <input type="radio" name="radio">ip<br>
+            <input type="radio" name="radio">ip6<br>
+            <input type="radio" name="radio">link<br>
+            <input type="radio" name="radio">ppp<br>
+            <input type="radio" name="radio">radio<br>
+            <input type="radio" name="radio">sctp<br>
+            <input type="radio" name="radio">tcp<br>
+            <input type="radio" name="radio">udp<br>
+            <input type="radio" name="radio">wlan<br>
 
-                <br><br>
-                <b>-p protocol</b><br><br>
-                <input type="radio" name="radio">arp<br>
-                <input type="radio" name="radio">ether<br>
-                <input type="radio" name="radio">icmp<br>
-                <input type="radio" name="radio">ip<br>
-                <input type="radio" name="radio">ip6<br>
-                <input type="radio" name="radio">link<br>
-                <input type="radio" name="radio">ppp<br>
-                <input type="radio" name="radio">radio<br>
-                <input type="radio" name="radio">sctp<br>
-                <input type="radio" name="radio">tcp<br>
-                <input type="radio" name="radio">udp<br>
-                <input type="radio" name="radio">wlan<br>
+            <br>
 
-                <br>
-            </table>
+            <input type="submit" value="Run">
+            <p>Click "Run" to begin the packet captures.</p>
         </form> 
 
         Raw Parameters:
         <input type="text" name="raw1" value="">
-
-        <input type="submit" value="Run">
-
-        <p>Click "Run" to begin the packet captures.</p>
 
     </body>
 </html>
