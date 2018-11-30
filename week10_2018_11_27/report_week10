@@ -17,7 +17,7 @@ RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/html/myfile.html")
 rd.include(request, response);
 "
 
-I began to implement a test Java servlet and successfully was able to process a form using a servlet. THis did not involve javascript yet but included form processing.
+I began to implement a test Java servlet and successfully was able to process a form using a servlet using javascript and jquery.
 
 I used the follwing as references:
 
@@ -26,3 +26,5 @@ https://stackoverflow.com/questions/36532255/opening-an-html-file-in-a-servlet
 https://www.tutorialspoint.com/servlets/servlets-first-example.html
 
 https://beginnersbook.com/2013/05/servlet-api/
+
+https://netbeans.org/kb/docs/web/ajax-quickstart.html#flow-diagram
