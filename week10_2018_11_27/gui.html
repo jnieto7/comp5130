@@ -3,12 +3,11 @@
 
     <head>
         <title>Protocol Capture Utility</title>
-        <link rel="stylesheet" href="style.css"/>
         <link rel="stylesheet" href="style.css" type="text/css">
-
+        <script src="servers.js"></script>
     </head>
 
-    <body>
+    <body onload="init()">
         <h1><b>TCPDUMP multi-capture</b></h1>
 
         <h5>Capture of a simultaneous tcpdump
@@ -16,11 +15,13 @@
 
         <h2>Server Configuration</h2>
 
-        <form action="">
-            <div id="servers">
+        Current Saved Configuration:
+        <div id="userConfig">No configuration has been saved.</div>
 
-            </div>
-            <p><input type="button" value="Add Server" onclick="addServers()" /></p>
+        <div id="form-messages"></div>
+
+        <form id="saveConfiguration" name="saveConfiguration" method="post" action="serverConfiguration">
+            <p><input type="button" value="Add Server" onclick="addServers()" id="servers" name="servers"/></p>
 
             <script>
                 var id = 0;
@@ -29,19 +30,26 @@
 
                     id++;
 
-                    var newElement;
-                    var container;
-
-                    newElement = document.createElement('p');
-                    newElement.innerHTML = 'Server IP Address: <input type="text" name="server1" value=""> Password: <input type="password" name="password1" value=""> ';
+                    if (id >= 5) {
+                        // maximum supported number of servers has been reached
+                        window.alert("You cannot add another server. The maximum supported number of servers has been reached.");
+                        return;
+                    }
+                    var newElement = document.createElement('p');
+                    newElement.innerHTML = "Server IP Address: <input type=\"text\" name=\"server" + id + "\" value=\"\"> Password: <input type=\"password\" name\"password" + id + "\" value=\"\"> ";
                     newElement.id = id;
 
-                    container = document.getElementById('servers');
+                    var container = document.getElementById('saveConfiguration');
                     container.appendChild(newElement);
                 }
             </script>
 
-        </form> 
+            <input name="saveServers" id="saveButton" type="submit" value="Save Server Configuration" onclick="servers.saveConfiguration()">
+        </form>
+
+
+        <!--        <script src="jquery-2.1.0.min.js"></script>
+                <script src="servers.js"></script>-->
 
 
         <h2>Capture options</h2>
@@ -50,16 +58,14 @@
             <b>Command Line:</b><br><br>
             -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any"><br>
 
-            <input type="checkbox" name="lenBytes">-s &lt;len&gt; Capture up to len bytes per packet<br>
+            -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes">
 
             <br><br>
             <b>Capture Filter Primitives:</b>
             <br><br>
 
-            src host: Match IP source <input type="text" name="sourceHost"><br>
-            dst host: Match IP destination <input type="text" name="destHost"><br>
-            src port Match source port<input type="text" name="sourcePort"><br>
-            dst port Match destination port <input type="text" name="destPort"><br>
+            host: Match IP host <input type="text" name="host"><br>
+            port: Match source port<input type="text" name="port"><br>
 
             <br><br>
 
@@ -87,6 +93,5 @@
 
         Raw Parameters:
         <input type="text" name="raw1" value="">
-
     </body>
 </html>
