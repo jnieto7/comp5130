@@ -36,12 +36,34 @@
                         window.alert("You cannot add another server. The maximum supported number of servers has been reached.");
                         return;
                     }
-                    var newElement = document.createElement('p');
-                    newElement.innerHTML = "Server IP Address: <input type=\"text\" name=\"server" + id + "\" value=\"\"> Password: <input type=\"password\" name\"password" + id + "\" value=\"\"> ";
-                    newElement.id = id;
+                    var hostInput = document.createElement("input");
+                    hostInput.setAttribute("type", "text");
+                    hostInput.setAttribute("name", "server" + id);
+                    hostInput.setAttribute("value", "");
+                    hostInput.setAttribute("id", "server" + id);
+
+                    var passwordInput = document.createElement("input");
+                    passwordInput.setAttribute("type", "password");
+                    passwordInput.setAttribute("name", "password" + id);
+                    passwordInput.setAttribute("value", "");
+                    passwordInput.setAttribute("id", "password" + id);
 
                     var container = document.getElementById('saveConfiguration');
-                    container.appendChild(newElement);
+
+                    // for the first time, add a new line between the "save server config" button and the elements created below
+                    if (id === 1) {
+                        container.appendChild(document.createElement("br"));
+                    }
+
+                    var text = document.createTextNode("IP Address: ");
+                    container.appendChild(text);
+                    container.appendChild(hostInput);
+
+                    var text = document.createTextNode(" Password: ");
+                    container.appendChild(text);
+                    container.appendChild(passwordInput);
+
+                    container.appendChild(document.createElement("br"));
                 }
             </script>
 
@@ -56,7 +78,7 @@
         <h2>Capture options</h2>
 
         <form name ="options" method="post" action="processOptions" id="options" class="options">
-            <b>Command Line:</b><br><br>
+            <b>Command Line Options:</b><br><br>
             -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any"><br>
 
             -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes">
