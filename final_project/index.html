@@ -81,7 +81,8 @@
             <b>Command Line Options:</b><br><br>
             -c &lt;timeout&gt;  Length of time in seconds to run the tcpdump <input type="text" name="timeout" value="any" required><br>
             -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any" required><br>
-            -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes">
+            -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes"><br>
+            <input type="checkbox" name="file" id="file">-w &lt;write to a file&gt; Write the output to a pcap file. The filename will be capture${host}.pcap
 
             <br><br>
             <b>Capture Filter Primitives:</b>
