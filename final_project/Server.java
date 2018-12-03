@@ -30,6 +30,18 @@ class Server {
         return ServerCommand.executeSSHCommand(this.host, this.user, this.password, command);
     }
 
+    String getHost() {
+        return this.host;
+    }
+
+    String getPassword() {
+        return this.password;
+    }
+
+    String getUser() {
+        return this.user;
+    }
+
     @Override
     public String toString() {
         return this.host;
