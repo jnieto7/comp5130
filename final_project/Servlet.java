@@ -88,26 +88,13 @@ public class Servlet extends HttpServlet {
             response.setContentType("text/xml");
             response.setHeader("Cache-Control", "no-cache");
             response.getWriter().write(sb.toString());
-        } else {
-            // the user did not configure any servers
-            StringBuilder sb = new StringBuilder();
-
-            sb.append("<root>");
-            sb.append("<message>");
-            sb.append("No server configuration data was submitted. Complete the form and define a server configration.");
-            sb.append("</message>");
-            sb.append("</root>");
-
-            response.setContentType("text/xml");
-            response.setHeader("Cache-Control", "no-cache");
-            response.getWriter().write(sb.toString());
         }
 
         if (!savingConfigRequest) {
 
             String captureInterface = request.getParameter("interface");
 
-            StringBuilder command = new StringBuilder("/usr/sbin/tcpdump -c ").append(request.getParameter("timeout")).append(" -i ")
+            StringBuilder command = new StringBuilder("/usr/sbin/tcpdump -vvv -c ").append(request.getParameter("timeout")).append(" -i ")
                     .append(captureInterface);
 
             String lenBytes = request.getParameter("lenBytes");
@@ -125,6 +112,12 @@ public class Servlet extends HttpServlet {
                 command.append(" port ").append(port);
             }
 
+            String writeToFIle = request.getParameter("file");
+            if (writeToFIle != null && !writeToFIle.isEmpty()) {
+                // deal with the rest of the filename later when running command
+                command.append(" -w ").append("/tmp/capture");
+            }
+
             ArrayList<String> results = new ArrayList();
             ArrayList<Throwable> errors = null;
 
@@ -132,8 +125,17 @@ public class Servlet extends HttpServlet {
 
                 for (Server s : this.servers) {
                     try {
+                        // add the host back in if writing to a file
+                        if (writeToFIle != null && writeToFIle.equalsIgnoreCase("on")) {
+                            command.append("_").append(s.getHost()).append(".pcap");
+                        }
+                        results.add("host: " + s.getHost() + "<br>" + s.executeSSHCommand(command.toString()).concat("<br><br>==============================<br><br>="));
 
-                        results.add("host: " + s.toString() + " \n" + s.executeSSHCommand(command.toString()));
+                        // if writing to a file copy it back to the current directory
+                        if (writeToFIle != null && writeToFIle.equalsIgnoreCase("on")) {
+                            String copy = "scp " + s.getUser() + "@" + s.getHost() + ":/tmp/capture_" + s.getHost() + ".pcap /tmp/";
+                            s.executeSSHCommand(copy);
+                        }
                     } catch (Throwable th) {
                         // don't allow one error to hurt the others
                         errors = new ArrayList();
@@ -146,7 +148,7 @@ public class Servlet extends HttpServlet {
 
             PrintWriter out = response.getWriter();
             out.println("<h2>" + "Network Traffic captured:" + "</h2>");
-            out.println("<h2>" + Arrays.deepToString(results.toArray()) + "</h2>");
+            out.println("<h3>" + Arrays.deepToString(results.toArray()) + "</h3>");
 
             if (errors != null) {
                 out.println("<h2>" + "The following errors occurred:" + "</h2>");
