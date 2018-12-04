@@ -8,10 +8,14 @@ import com.jcraft.jsch.ChannelExec;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
+ * The ServerCommand class provides static methods to execute SSH commands on
+ * the remote host using the JSch library.
  *
  * @author Jeremie Nieto
  */
@@ -66,6 +70,56 @@ final class ServerCommand {
                 session.disconnect();
             }
         }
+    }
 
+    private static String executeLocal(String command, int timeoutInMillis) throws InterruptedException, IOException {
+        StringBuilder sb = new StringBuilder();
+
+        Process process = Runtime.getRuntime().exec(command);
+        if (timeoutInMillis > 0) {
+            process.waitFor(timeoutInMillis, TimeUnit.MILLISECONDS);
+        } else {
+            process.waitFor();
+        }
+
+        BufferedReader reader
+                = new BufferedReader(new InputStreamReader(process.getInputStream()));
+
+        String line;
+
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        return sb.toString();
+    }
+
+    /**
+     * Executes a command locally on this machine with a completion timeout.
+     *
+     * @param command the command to run on the command line locally on this
+     * machine.
+     * @param timeoutInMillis the time to wait for the command completion in
+     * milliseconds. A timeout of 0 indicates an indefinite wait.
+     * @return A String containing the command output
+     * @throws InterruptedException if the process is interrupted during command
+     * execution
+     * @throws IOException
+     */
+    public static String executeLocalCommand(String command, int timeoutInMillis) throws InterruptedException, IOException {
+        return executeLocal(command, timeoutInMillis);
+    }
+
+    /**
+     * Executes a command locally on this machine.
+     *
+     * @param command the command to run on the command line locally on this
+     * machine.
+     * @return A String containing the command output
+     * @throws InterruptedException if the process is interrupted during command
+     * execution
+     * @throws IOException
+     */
+    public static String executeLocalCommand(String command) throws InterruptedException, IOException {
+        return executeLocal(command, 0);
     }
 }
