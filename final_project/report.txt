@@ -5,7 +5,7 @@ ID: 01160956
 
 1. Introduction:
 
-	For My project I designed a tool to be used at my job as a software engineer in telecommunications networks. This tool is a web server that will perform a tcpdump based on the user’s configruation to multiple remote hosts at the same time.
+	For My project I designed a tool to be used at my job as a software engineer in telecommunications networks. This tool is a web server that will perform a tcpdump based on the user’s configuration to multiple remote hosts at the same time.
 
 2. Problems and Solutions
 
@@ -38,7 +38,7 @@ Servers.js
 
 Servlet.java
 
-	This file is the back end and processes all requests by the web server. It handles the Ajax request and it runs the tcpdumps on each host. It keeps track of the user’s configuration in its own private variable of Server objects. n order to run them at the same time, they are all run on a separate thread. It will then copy the files to the webserver if the “write to file” option was given. The errors and success response are sent to index.html
+	This file is the back end and processes all requests by the web server. It handles the Ajax request and it runs the tcpdumps on each host. It keeps track of the user’s configuration in its own private variable of Server objects. n order to run them at the same time, they are all run on a separate thread. It will then copy the files to the web server if the “write to file” option was given. The errors and success response are sent to index.html
 
 Server.java
 
