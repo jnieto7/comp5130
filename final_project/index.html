@@ -10,8 +10,8 @@
     <body onload="init()">
         <h1><b>TCPDUMP multi-capture</b></h1>
 
-        <h5>Capture of a simultaneous tcpdump
-            to multiple hosts</h5>
+        <h3>Capture of a simultaneous tcpdump
+            to multiple hosts</h3>
 
         <h2>Server Configuration</h2>
 
@@ -75,11 +75,13 @@
             </script>
         </form>
 
-        <h2>Capture options</h2>
+        <br><br>
 
         <form name ="options" method="post" action="Servlet" id="options" class="options">
+            <h1><b>Capture options</b></h1>
+
             <b>Command Line Options:</b><br><br>
-            -c &lt;timeout&gt;  Length of time in seconds to run the tcpdump <input type="text" name="timeout" value="any" required><br>
+            -c &lt;timeout&gt;  Length of time in seconds to run the tcpdump <input type="text" name="timeout" value="10" required><br>
             -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any" required><br>
             -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes"><br>
             <input type="checkbox" name="file" id="file">-w &lt;write to a file&gt; Write the output to a pcap file. The filename will be capture${host}.pcap
@@ -96,18 +98,16 @@
             <b>-p protocol</b><br><br>
             (Note: the -p protocol option cannot be used in conjuction with host/port options above)<br>
 
-            <input type="radio" name="radio">arp<br>
-            <input type="radio" name="radio">ether<br>
-            <input type="radio" name="radio">icmp<br>
-            <input type="radio" name="radio">ip<br>
-            <input type="radio" name="radio">ip6<br>
-            <input type="radio" name="radio">link<br>
-            <input type="radio" name="radio">ppp<br>
-            <input type="radio" name="radio">radio<br>
-            <input type="radio" name="radio">sctp<br>
-            <input type="radio" name="radio">tcp<br>
-            <input type="radio" name="radio">udp<br>
-            <input type="radio" name="radio">wlan<br>
+            <input type="radio" name="radio" value="arp">arp<br>
+            <input type="radio" name="radio" value="ether">ether<br>
+            <input type="radio" name="radio" value="icmp">icmp<br>
+            <input type="radio" name="radio" value="ip">ip<br>
+            <input type="radio" name="radio" value="ip6">ip6<br>
+            <input type="radio" name="radio" value="link">link<br>
+            <input type="radio" name="radio" value="sctp">sctp<br>
+            <input type="radio" name="radio" value="tcp">tcp<br>
+            <input type="radio" name="radio" value="udp">udp<br>
+            <input type="radio" name="radio" value="wlan">wlan<br>
 
             <br>
 
