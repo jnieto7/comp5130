@@ -1,0 +1,42 @@
+ body {
+    background-color: lightblue;
+    font-family: courier;
+    font-size: 100%;
+}
+h1 {
+    color: black;
+    font-family: courier;
+    font-size: 120%;
+    font-style: normal;
+}
+h2 {
+    color: black;
+    font-family: courier;
+    font-size: 80%;
+    font-style: normal;
+}
+h3 {
+    color: black;
+    font-family: courier;
+    font-size: 60%;
+    font-style: normal;
+}
+h4 {
+    color: black;
+    font-family: courier;
+    font-size: 60%;
+    font-style: normal;
+}
+h5 {
+    color: black;
+    font-family: courier;
+    font-size: 60%;
+    font-style: oblique;
+}
+form.options {
+    color: darkslategrey;
+    font-family: serif;
+    font-size: 70%;
+    border: black;
+    border-style: groove;
+}
