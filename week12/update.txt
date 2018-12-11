@@ -1,0 +1,8 @@
+  This week I completed the final touches of my project. I was unable to get the post request working so I ended up sticking with the
+get method. I made some changes in the css and html to make the text look nicer and the we page easier to use. I also
+changed the sizes of some of the text. I completed the report of my project. In the report I included a motivation for the project,
+breakdown of each file, how I ran the project, the problems that the project solves, what I have learned, and the improvements I
+would like to make. I also addressed any known technical issues and the areas I strugged with.
+  In the end I am happy with the final result and have implemented a tool that I will be able to use in my office at work during
+the testing of our software. Althought there is a narrow path of functionality as far as capture options, It defines the majority
+of most of our applications.
