@@ -1,0 +1,11 @@
+This week I had finished up the Servlet functionality of processing the requests. I was able to use The JSch library on the Java Servlet
+in order to ssh into the remote VMs and execute the tcpdump captures.
+
+
+
+Challenges:
+
+I had a challenge getting my request to work with the post method. I am using Ajax in order to interact with the Servlet and update
+the HTML that the user sees. I could not figure out how to successfuly pass the paramaters over to the Servlet with the post method.
+As a result, I ended up using the get method. Unfortunately this presents a security concern because the passwords for the remote hosts
+are sent in the URL in the request. However, because the applications for this project is for private use at work, it may be okay.
