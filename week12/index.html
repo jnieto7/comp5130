@@ -10,8 +10,8 @@
     <body onload="init()">
         <h1><b>TCPDUMP multi-capture</b></h1>
 
-        <h5>Capture of a simultaneous tcpdump
-            to multiple hosts</h5>
+        <h3>Capture of a simultaneous tcpdump
+            to multiple hosts</h3>
 
         <h2>Server Configuration</h2>
 
@@ -21,13 +21,16 @@
         <div id="form-messages"></div>
 
         <form id="saveConfiguration" name="saveConfiguration">
-            <!--<form id="saveConfiguration" name="saveConfiguration" method="post" action="serverConfiguration">-->
             <p><input type="button" value="Add Server" onclick="addServers()" id="servers" name="servers"/></p>
 
             <script>
                 var id = 0;
+
+                // the addServers() function will create server configuration input fields for the user after clicking the "add server" button
                 function addServers() {
+
                     id++;
+
                     if (id >= 5) {
                         // maximum supported number of servers has been reached
                         window.alert("You cannot add another server. The maximum supported number of servers has been reached.");
@@ -38,22 +41,28 @@
                     hostInput.setAttribute("name", "server" + id);
                     hostInput.setAttribute("value", "");
                     hostInput.setAttribute("id", "server" + id);
+
                     var passwordInput = document.createElement("input");
                     passwordInput.setAttribute("type", "password");
                     passwordInput.setAttribute("name", "password" + id);
                     passwordInput.setAttribute("value", "");
                     passwordInput.setAttribute("id", "password" + id);
+
                     var container = document.getElementById('saveConfiguration');
+
                     // for the first time, add a new line between the "save server config" button and the elements created below
                     if (id === 1) {
                         container.appendChild(document.createElement("br"));
                     }
+
                     var text = document.createTextNode("IP Address: ");
                     container.appendChild(text);
                     container.appendChild(hostInput);
+
                     var text = document.createTextNode(" Password: ");
                     container.appendChild(text);
                     container.appendChild(passwordInput);
+
                     container.appendChild(document.createElement("br"));
                 }
             </script>
@@ -66,13 +75,16 @@
             </script>
         </form>
 
-        <h2>Capture options</h2>
+        <br><br>
 
-        <form name ="options" method="post" action="processOptions" id="options" class="options">
+        <form name ="options" method="post" action="Servlet" id="options" class="options">
+            <h1><b>Capture options</b></h1>
+
             <b>Command Line Options:</b><br><br>
-            -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any"><br>
-
-            -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes">
+            -c &lt;timeout&gt;  Length of time in seconds to run the tcpdump <input type="text" name="timeout" value="10" required><br>
+            -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any" required><br>
+            -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes"><br>
+            <input type="checkbox" name="file" id="file">-w &lt;write to a file&gt; Write the output to a pcap file. The filename will be capture${host}.pcap
 
             <br><br>
             <b>Capture Filter Primitives:</b>
@@ -81,32 +93,33 @@
             host: Match IP host <input type="text" name="host"><br>
             port: Match source port<input type="text" name="port"><br>
 
-            <br><br>
+            <br>
 
             <b>-p protocol</b><br><br>
             (Note: the -p protocol option cannot be used in conjuction with host/port options above)<br>
 
-            <input type="radio" name="radio">arp<br>
-            <input type="radio" name="radio">ether<br>
-            <input type="radio" name="radio">icmp<br>
-            <input type="radio" name="radio">ip<br>
-            <input type="radio" name="radio">ip6<br>
-            <input type="radio" name="radio">link<br>
-            <input type="radio" name="radio">ppp<br>
-            <input type="radio" name="radio">radio<br>
-            <input type="radio" name="radio">sctp<br>
-            <input type="radio" name="radio">tcp<br>
-            <input type="radio" name="radio">udp<br>
-            <input type="radio" name="radio">wlan<br>
+            <input type="radio" name="radio" value="arp">arp<br>
+            <input type="radio" name="radio" value="ether">ether<br>
+            <input type="radio" name="radio" value="icmp">icmp<br>
+            <input type="radio" name="radio" value="ip">ip<br>
+            <input type="radio" name="radio" value="ip6">ip6<br>
+            <input type="radio" name="radio" value="link">link<br>
+            <input type="radio" name="radio" value="sctp">sctp<br>
+            <input type="radio" name="radio" value="tcp">tcp<br>
+            <input type="radio" name="radio" value="udp">udp<br>
+            <input type="radio" name="radio" value="wlan">wlan<br>
 
             <br>
 
             <input type="submit" value="Run">
             <p>Click "Run" to begin the packet captures.</p>
-        </form> 
 
-        Raw Parameters:
-        <input type="text" name="raw1" value="">
+            <script>
+
+                // pass the server configuration to the servlet on submit
+                servers.saveConfiguration();
+            </script>
+        </form> 
 
         <script src="servers.js"></script>
 
