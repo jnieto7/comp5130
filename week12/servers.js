@@ -1,127 +1,111 @@
-<!DOCTYPE html>
-<html>
+/* 
+ * servers.js
+ * 
+ * Server configuration processor
+ */
 
-    <head>
-        <title>Protocol Capture Utility</title>
-        <link rel="stylesheet" href="style.css" type="text/css">
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    </head>
+var request;
+var userConfiguration;
 
-    <body onload="init()">
-        <h1><b>TCPDUMP multi-capture</b></h1>
+function init() {
+    userConfiguration = document.getElementById("userConfig");
+}
 
-        <h3>Capture of a simultaneous tcpdump
-            to multiple hosts</h3>
+function saveConfiguration() {
+    var form = document.getElementById("saveConfiguration");
 
-        <h2>Server Configuration</h2>
+    form.addEventListener("click", function (event) {
+        event.preventDefault();
+    });
 
-        Current Saved Configuration:
-        <div id="userConfig">No configuration has been saved.</div>
+    var url = 'Servlet';
 
-        <div id="form-messages"></div>
+    // the first server must not be null, the user must configure at least one
+    if (document.querySelector('#server1') !== null) {
+        url = url.concat('?server1=').concat(document.querySelector('#server1').value);
 
-        <form id="saveConfiguration" name="saveConfiguration">
-            <p><input type="button" value="Add Server" onclick="addServers()" id="servers" name="servers"/></p>
+        if (document.querySelector('#password1') !== null) {
+            url = url.concat('&password1=').concat(document.querySelector('#password1').value);
+        }
 
-            <script>
-                var id = 0;
+        if (document.querySelector('#server2') !== null) {
+            url = url.concat('&server2=').concat(document.querySelector('#server2').value);
 
-                // the addServers() function will create server configuration input fields for the user after clicking the "add server" button
-                function addServers() {
+            if (document.querySelector('#password2') !== null) {
+                url = url.concat('&password2=').concat(document.querySelector('#password2').value);
+            }
 
-                    id++;
+            if (document.querySelector('#server3') !== null) {
+                url = url.concat('&server3=').concat(document.querySelector('#server3').value);
 
-                    if (id >= 5) {
-                        // maximum supported number of servers has been reached
-                        window.alert("You cannot add another server. The maximum supported number of servers has been reached.");
-                        return;
-                    }
-                    var hostInput = document.createElement("input");
-                    hostInput.setAttribute("type", "text");
-                    hostInput.setAttribute("name", "server" + id);
-                    hostInput.setAttribute("value", "");
-                    hostInput.setAttribute("id", "server" + id);
-
-                    var passwordInput = document.createElement("input");
-                    passwordInput.setAttribute("type", "password");
-                    passwordInput.setAttribute("name", "password" + id);
-                    passwordInput.setAttribute("value", "");
-                    passwordInput.setAttribute("id", "password" + id);
-
-                    var container = document.getElementById('saveConfiguration');
-
-                    // for the first time, add a new line between the "save server config" button and the elements created below
-                    if (id === 1) {
-                        container.appendChild(document.createElement("br"));
-                    }
-
-                    var text = document.createTextNode("IP Address: ");
-                    container.appendChild(text);
-                    container.appendChild(hostInput);
-
-                    var text = document.createTextNode(" Password: ");
-                    container.appendChild(text);
-                    container.appendChild(passwordInput);
-
-                    container.appendChild(document.createElement("br"));
+                if (document.querySelector('#password3') !== null) {
+                    url = url.concat('&password3=').concat(document.querySelector('#password3').value);
                 }
-            </script>
 
-            <input type="submit" name="saveServers" id="saveButton" value="Save Server Configuration" onclick="save()">
-            <script>
-                function save() {
-                    saveConfiguration();
+                if (document.querySelector('#server4') !== null) {
+                    url = url.concat('&server4=').concat(document.querySelector('#server4').value);
+
+                    if (document.querySelector('#password4') !== null) {
+                        url = url.concat('&password4=').concat(document.querySelector('#password4').value);
+                    }
                 }
-            </script>
-        </form>
+            }
+        }
+    }
 
-        <br><br>
+    request = new XMLHttpRequest();
+    request.open("POST", url, true);
+    request.onreadystatechange = callback;
 
-        <form name ="options" method="post" action="Servlet" id="options" class="options">
-            <h1><b>Capture options</b></h1>
+    request.send();
+}
 
-            <b>Command Line Options:</b><br><br>
-            -c &lt;timeout&gt;  Length of time in seconds to run the tcpdump <input type="text" name="timeout" value="10" required><br>
-            -i &lt;interface&gt; Specifies the capture interface <input type="text" name="interface" value="any" required><br>
-            -s &lt;len&gt; Capture up to len bytes per packet<input type="text" name="lenBytes"><br>
-            <input type="checkbox" name="file" id="file">-w &lt;write to a file&gt; Write the output to a pcap file. The filename will be capture${host}.pcap
+function callback() {
+    if (request.readyState === 4) {
+        if (request.status === 200) {
+            parseMessages(request.responseText);
+        }
+    }
+}
 
-            <br><br>
-            <b>Capture Filter Primitives:</b>
-            <br><br>
+function parseMessages(responseXML) {
 
-            host: Match IP host <input type="text" name="host"><br>
-            port: Match source port<input type="text" name="port"><br>
+    if (responseXML !== null) {
+        var parser = new DOMParser();
+        var xmlDoc = parser.parseFromString(responseXML, "text/xml");
+        var message = xmlDoc.getElementsByTagName("message")[0].childNodes[0].nodeValue;
 
-            <br>
+        if (message === "No server configuration data was submitted. Complete the form and define a server configration.") {
+            // No form data for configuration of servers was submitted
+            userConfiguration.innerHTML = message;
+        } else {
+            var server1 = xmlDoc.getElementsByTagName("server1");
 
-            <b>-p protocol</b><br><br>
-            (Note: the -p protocol option cannot be used in conjuction with host/port options above)<br>
+            var displayMessage;
 
-            <input type="radio" name="radio" value="arp">arp<br>
-            <input type="radio" name="radio" value="ether">ether<br>
-            <input type="radio" name="radio" value="icmp">icmp<br>
-            <input type="radio" name="radio" value="ip">ip<br>
-            <input type="radio" name="radio" value="ip6">ip6<br>
-            <input type="radio" name="radio" value="link">link<br>
-            <input type="radio" name="radio" value="sctp">sctp<br>
-            <input type="radio" name="radio" value="tcp">tcp<br>
-            <input type="radio" name="radio" value="udp">udp<br>
-            <input type="radio" name="radio" value="wlan">wlan<br>
+            if (server1.length > 0) {
+                displayMessage = xmlDoc.getElementsByTagName("server1")[0].childNodes[0].nodeValue;
+            }
 
-            <br>
+            var server2 = xmlDoc.getElementsByTagName("server2");
 
-            <input type="submit" value="Run">
-            <p>Click "Run" to begin the packet captures.</p>
+            if (server2.length > 0) {
+                displayMessage = displayMessage.concat(" ").concat(xmlDoc.getElementsByTagName("server2")[0].childNodes[0].nodeValue);
 
-            <script>
+            }
+            var server3 = xmlDoc.getElementsByTagName("server3");
 
-                // pass the server configuration to the servlet on submit
-                servers.saveConfiguration();
-            </script>
-        </form> 
+            if (server3.length > 0) {
+                displayMessage = displayMessage.concat(" ").concat(xmlDoc.getElementsByTagName("server3")[0].childNodes[0].nodeValue);
+            }
 
-        <script src="servers.js"></script>
+            var server4 = xmlDoc.getElementsByTagName("server4");
 
-    </body>
-</html>
+            if (server4.length > 0) {
+                displayMessage = displayMessage.concat(" ").concat(xmlDoc.getElementsByTagName("server4")[0].childNodes[0].nodeValue);
+            }
+
+            userConfiguration.innerHTML = displayMessage + "<br><br>" + message;
+        }
+    }
+}
