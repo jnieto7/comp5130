@@ -1,0 +1,141 @@
+TCPDUMP Multi-Network Capture Project Manual
+
+Running the project:
+
+	The project must be deployed onto an Apache Tomcat WebServer on a Linux system. It can be done in the NetBeans 8.2 IDE if your computer is running Linux by opening and running the project as long as Tomcat is installed. The path to the JSCH library jar must also be present for the Java code if this is run through the NetBeans IDE. The default website for the website when it is run will be localhost:8080/index.html. Enter this link into the browser to go to the web page.
+
+
+Alternatively, I have included a WebApplication.war archive that may be run on a Tomcat server. Execute the following to deploy the webserver:
+
+The .war archive is in directory comp5130/project/WebApplication.war.
+
+1. Install and Configure Apache Tomcat 9.0.13. 
+        ◦ Download apache tomcat tar.gz 9.0.13 from https://tomcat.apache.org/download-90.cgi
+        ◦ Install and configure Tomcat. Below are instructions that I used taken from https://www.mulesoft.com/tcat/tomcat-linux
+
+“Step 1 - Download And Extract The Latest Binary Distribution
+You can download the latest version of Tomcat from the Apache project site.  Click here to see the list of available versions.  Most Linux users will want to use the latest TAR package. 
+
+To download the package directly from the Linux command line, you'll use a command that looks something like this:
+
+$ wget http://apache.YourFavoriteMirror.com/tomcat/tomcat-[#]/v[#]/apache-tomcat-[#].tar.gz
+
+After you have downloaded the package, make sure to verify the MD5 checksum against the key provided on the Apache website, like this:
+
+$ md5sum apache-tomcat-[#].tar.gz
+
+Next, extract the package:
+
+$ tar xvzf apache-tomcat-[#].tar.gz
+
+...And move the extracted folder into a dedicated directory:
+
+$ sudo mv apache-tomcat-[#] /usr/local/example/path/to/tomcat
+
+Step 2 - Set The Required Environment Variables
+If you haven't already done so during a different application's install process, you'll need to set the JAVA_HOME environment variable in order for Tomcat to run.  We recommend doing this by editing ".bashrc", (or editing ~/.bash_profile) as it this will allow you to set up automatic start for Tomcat, if you need it.  Open the file with vi:
+
+$ vi ~/.bashrc
+
+...And set the variable like this:
+
+export JAVA_HOME=/usr/lib/path/to/java
+
+While you're here, you should also set the CATALINA_HOME variable, which should point to the main Tomcat directory:
+
+export CATALINA_HOME=/path/to/tomcat
+
+Log out and log back into bash to have your changes take effect.
+
+Step 3 - Start Tomcat
+If you followed all these steps correctly, you should be able to start Tomcat via its included startup script, startup.sh:
+
+$ $CATALINA_HOME/bin/startup.sh
+
+Tomcat runs on port 8080 by default.  To check if your server is up and running correctly, use:
+
+$ ps -ef | grep java | grep 8080
+
+If this command returns the Catalina process, Tomcat is up and running. You should now be able to access the Tomcat Welcome Page at http://localhost:8080/
+
+Step 4 - What To Do Next
+Now that you've installed Tomcat, you may want some additional information to get you started.  
+
+If you want more information about configuring Tomcat, please visit our helpful guide to Tomcat Configuration, as well as our Tomcat Performance and Tomcat JVM guides, which will help you get Tomcat performing at its best on your machine.
+
+Running Tomcat Automatically At Linux Startup
+
+A potential drawback of installing Tomcat from a binary distribution instead of using a Linux-packaged version is that you'll have to do some extra legwork to make Tomcat start automatically when Linux boots up.  To make this process easy and pain-free, follow this simple guide.
+
+Step 1 - Create A Tomcat-Specific User and User Group
+It's a bad idea to run Tomcat as the root user, especially if you're going to be starting Tomcat automatically.  It's much more secure to create a new group and user specifically to run Tomcat.  You can do so with the following commands (in this example, we have created a user group named tomcat, and a user named tomcat with the password tomcat; you can certainly be more creative if you wish):
+
+$ groupadd tomcat
+
+$ useradd -s /sbin/nologin -g tomcat -d /path/to/tomcat tomcat
+
+$ passwd tomcat
+
+Step 2 - Adjust Ownership For New Users And Groups
+Now that you have created a user to run Tomcat, you'll need to give them access to the correct directories.  Use the following commands, substituting your own usernames and groups as necessary:
+
+# chown -R tomcat.tomcat /path/to/tomcat
+
+# chmod 775 /path/to/tomcat/webapps
+
+The first gives ownership of the Tomcat directories to the Tomcat user, and the second gives the user write access for the web apps directory.
+
+Step 3 - Relay Traffic For Non-Root Tomcat User
+When running Tomcat as a user other than the root user, you will not be able to bind to port 80, which is where Tomcat listens for HTTP requests.  To get around this, you can use Netfilter, which is packaged with all major Linux distributions:
+
+# iptables -t nat -I PREROUTING -p tcp --dport 80 -j REDIRECT --to-ports 8080
+
+# iptables -t nat -I OUTPUT -p tcp --dport 80 -j REDIRECT --to-ports 8080
+
+To preserve these rules through re-boot, save them with the "ip-tables-save" command, and then follow the procedure appropriate for your Linux distribution (for most distributions, this means editing the iptables init script; Debian users should load the configuration via a script called by if-up.d or pre-up.d).
+
+Step 3 - Create A Custom init Script
+To start Tomcat at Linux boot time, we'll need to create an init script that calls the startup.sh and shutdown.sh scripts included with Tomcat.  
+
+The actual creation of this script is outside the scope of this article, but there are many useful resources available online.  All you need to know in order to use the basic init script format to call Tomcat is how the startup.sh and shutdown.sh scripts work.  
+
+For more information about these scripts, visit our Tomcat Start page, which includes a simple, step-by-step guide to Tomcat's three start-up shell scripts.”
+
+
+2. Place the WebApplication.war archive in the following directory according to these instructions from the Tomcat website:  ( https://tomcat.apache.org/tomcat-9.0-doc/deployer-howto.html )
+
+
+The WebApplication.war should be placed here: /path/to/tomcat/webapps/WebApplication.war
+
+3. Set deployOnStartup to true in $CATALINA_HOME/conf/server.xml
+Edit the /path/to/tomcat/conf/server.xml . Find the following xml snippet:
+
+<Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="true">
+
+Change autoDeploy to false and add deployOnStartup set to true. It should look like below:
+
+<Host name="localhost"  appBase="webapps"
+            unpackWARs="true" autoDeploy="false" deployOnStartup="true">
+
+
+4. Configure a remote Linux Server to run the tcpdump capture on.
+
+There must be another Linux Server (such as a Virtual Machine) to run the remote tcpdump capture on. This Linux Server must be set up with the following configuration:
+    • Allow root user ssh login
+      This is done by editing /etc / sshd_config and changing “PermitRootLogin” to yes
+      and adding “root” to “Allowusers” at the bottom of the file.
+    • /sbin/tcpdump package is installed (should be by default)
+
+
+5. Running the capture on the website:
+
+    • Start Tomcat. Unless you are running the project through NetBeans IDE, this would be done by running the Tomcat startup script:    /path / to / tomcat / bin  / startup.sh . If you want to configure Tomcat to run on another IP address/port other than localhost:8080, you must configure it to listen on another address in /pathtotomcat /conf /server.xml.
+    • Navigate to the URL of the Application in a browser :
+      
+      localhost:8080WebApplication/index.html
+
+    • Add server configurations and insert the IPv4 address and password. The user that will run is root, so ensure root may login remotely via SSH.
+    • Click “Save server configuration.”
+    • Select the options for the tcpdump. Select the -w option if you want the files to be copied to /tmp directory of the Tomcat server. Otherwise the raw tcpdump results are output to a new page
+    • Click “run” at the buttom of the page
