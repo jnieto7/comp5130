@@ -2,12 +2,13 @@ TCPDUMP Multi-Network Capture Project Manual
 
 Running the project:
 
-	The project must be deployed onto an Apache Tomcat WebServer on a Linux system. It can be done in the NetBeans 8.2 IDE if your computer is running Linux by opening and running the project as long as Tomcat is installed. The path to the JSCH library jar must also be present for the Java code if this is run through the NetBeans IDE. The default website for the website when it is run will be localhost:8080/index.html. Enter this link into the browser to go to the web page.
-
+	The project must be deployed onto an Apache Tomcat WebServer on a Linux system. It can be done in the NetBeans 8.2 IDE if your computer is running Linux by opening and running the project as long as Tomcat is installed. The path to the JSCH library jar must also be present for the Java code if this is run through the NetBeans IDE. The default website for the website when it is run will be localhost:8080/WebApplication/index.html. Enter this link into the browser to go to the web page. There must also be at least one remote Linux server to run a tcpdump capture on that allows SSH access via the root user. If this is not available, you can specify yourself (127.0.0.1) and run the capture locally. 
 
 Alternatively, I have included a WebApplication.war archive that may be run on a Tomcat server. Execute the following to deploy the webserver:
 
-The .war archive is in directory project/WebApplication.war.
+The .war archive is in directory comp5130/project/WebApplication.war.
+
+If you do not have Tomcat installed, please follow these instructions below to install it. 
 
 1. Install and Configure Apache Tomcat 9.0.13. 
         ◦ Download apache tomcat tar.gz 9.0.13 from https://tomcat.apache.org/download-90.cgi
@@ -121,7 +122,8 @@ Change autoDeploy to false and add deployOnStartup set to true. It should look l
 
 4. Configure a remote Linux Server to run the tcpdump capture on.
 
-There must be another Linux Server (such as a Virtual Machine) to run the remote tcpdump capture on. This Linux Server must be set up with the following configuration:
+There must be another Linux Server (such as a Virtual Machine) to run the remote tcpdump capture on.
+If this is not available, you can specify yourself (127.0.0.1) and run the capture locally.  This Linux Server must be set up with the following configuration:
     • Allow root user ssh login
       This is done by editing /etc / sshd_config and changing “PermitRootLogin” to yes
       and adding “root” to “Allowusers” at the bottom of the file.
