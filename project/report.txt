@@ -1,0 +1,61 @@
+TCPDUMP Multi-Network Capture Project
+
+Jeremie Nieto
+ID: 01160956
+
+1. Introduction:
+
+	For My project I designed a tool to be used at my job as a software engineer in telecommunications networks. This tool is a web server that will perform a tcpdump based on the user’s configuration to multiple remote hosts at the same time.
+
+2. Problems and Solutions
+
+	I work as a Test Engineer for a product that provides network solutions to the telecommunications networks. One of the areas in which this product functions is in SS7 signaling. In SS7 when there are problems in the network it often requires gathering a tcpdump of the network traffic in order to diagnose the issue. This is because there are multiple hosts at play that are required to abide by standards set by the International Telecommunications Union, the American National Standards Institute, and RFCs. We must often debug which host is not conforming to standard or is the reason for an impact on SS7 signaling. It also requires support and test engineers to reproduce the problem in a lab environment. This process often involves the repetition of setting up tcpdumps on all hosts for each test run. This tool will make that portion of the test much easier; it will perform the capture for you on all hosts simultaneously and copy the pcap files back to the web server.
+
+3.  Technologies
+
+The following technologies were used in the implementations of this project:
+
+    • HTML5
+    • CSS
+    • Javascript
+    • AJAX
+    • JQuery
+    • Java
+
+4.  Project Design:
+
+	The web application is deployed on top of Apache Tomcat webserver. It consists of three main files, the “index.html” graphical user interface, a javascript file “servers.js,” and a Java Servlet “Servlet.java”. There are also other files, the css file “style.css,” and Java files Server.java and ServerCommand.java.
+
+index.html
+
+	This file represents the main graphical user interface for the user. It presents a button “Add Server” For the user to add in configuration for the remote hosts that the tdpdump will be performed on. Each click uses inline javascript to generate input fields for IP address and password. Up to four servers may be configured. Once the button has been clicked four times to allow the configuration of four servers, the fifth click will present a window stopping the configuration of addition servers with a message “The maximum number of supported servers has been reached.”
+	There is a “Save server configuration” button that must be clicked to save the configuration. This will make an Ajax request using the javascript.js file to the java Servlet. It will update the page and display the configuration to the user. 
+	Beneath this portion of the page is the configuration for the tcpdump. Common options are presented for the user to configure. If “write to file” is checked, the capture will be copied from the remote servers to the /tmp directory of the Tomcat webserver. Otherwise the network traffic is displayed on a new page.
+
+Servers.js
+
+	This file is responsible for handling the Ajax request to update the server configuration saved by the user. It passes the configuration to the Servlet.java. It registers a callback function and updates the results dynamically on index.html.
+
+Servlet.java
+
+	This file is the back end and processes all requests by the web server. It handles the Ajax request and it runs the tcpdumps on each host. It keeps track of the user’s configuration in its own private variable of Server objects. n order to run them at the same time, they are all run on a separate thread. It will then copy the files to the web server if the “write to file” option was given. The errors and success response are sent to index.html
+
+Server.java
+
+	This class is an object to hold the information the user configured for each server. It also executes the tcpdump and copy of the pcap files. It extends thread so it may execute the tcpdumps at the same time.
+
+ServerCommand.java
+
+	Utility methods for executing the ssh command on the remote hosts using the Jsch library. It also provides methods for executing local commands. 
+
+5. External Libraries and packages
+
+    • Jsch Java library for running SSH commands on a remote host through Java
+    • Apache Tomcat Webserver to deploy the web application.
+
+
+6. Difficulties and Known Technical Issues
+
+    • I had trouble implementing the Ajax request to display the user’s saved server configuration using POST. I was able to get it working with GET. As a result, there is a security concern with the passwords being passed in the URL. The users of this application  are testers and developers at work on private networks and virtual machines, so this is not a critical problem.
+    • Sometimes the pcap files will not all copy over when more than two servers are specified.
+    • I have knowledge of networks and network programming in Java and C, however I have never written code at the application layer. Javascript, HTML, and Java Servlets were all new concepts to me, so it was difficult at times to get my implementation working.
